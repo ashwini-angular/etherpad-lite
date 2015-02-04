@@ -1047,6 +1047,12 @@ function handleClientReady(client, message)
             if(ERR(err, callback)) return;
             authorColorId = value.colorId;
             authorName = value.name;
+            // SANDSTORM EDIT: Initialize the author name from the Sandstorm display name.
+            if (!authorName) {
+              authorName = decodeURIComponent(client.request.headers["x-sandstorm-username"]);
+              authorManager.setAuthorName(author, authorName);
+            }
+            // END SANDSTORM EDIT
             callback();
           });
         },
